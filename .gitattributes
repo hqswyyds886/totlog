@@ -1,0 +1,16 @@
+# 统一换行，避免 Windows/macOS/Linux 三端 diff 噪音
+* text=auto eol=lf
+
+# Windows 脚本保留 CRLF，PowerShell 解析更稳
+*.ps1 text eol=crlf
+
+# 日志与二进制不要做换行转换
+*.log text eol=lf
+*.png binary
+*.jpg binary
+*.7z  binary
+*.exe binary
+*.dll binary
+
+# 中文文档在 GitHub 上按 Markdown 高亮
+*.md text eol=lf

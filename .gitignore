@@ -1,0 +1,37 @@
+# ---- 报告产物（含本机路径，不要提交） ----
+out/
+!out/.gitkeep
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# ---- 原生构建 ----
+build/
+*.o
+*.obj
+*.exe
+*.dll
+*.pdb
+*.ilk
+
+# ---- 工具链安装目录（如果装在了仓库里） ----
+mingw64/
+
+# ---- 编辑器 / OS ----
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ---- 本地日志与备份：绝对不要进仓库 ----
+*.log
+*.log.err
+OPP*.log
+!tests/fixtures/*.log

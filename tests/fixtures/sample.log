@@ -1,0 +1,27 @@
+LogInit: Build: release-7-1-CL-260801
+LogInit: Engine Version: 4.27.1-260801+release-7-1
+LogInit: Compatible Engine Version: 4.27.1-260801+release-7-1
+[2026.01.02-03.04.05:006][  0]LogInit: Display: Starting engine
+[2026.01.02-03.04.10:100][ 12]LogNet: Browse: /Game/Maps/Global/MainMenu?Name=Player
+[2026.01.02-03.04.20:200][ 40]LogQos: Display: Region Info:
+[2026.01.02-03.04.20:201][ 40]LogQos: Display: 	Region:  [us-east-1] (1 datacenters)
+[2026.01.02-03.04.20:202][ 40]LogQos: Display: 	Region:  [eu-central-1] (1 datacenters)
+[2026.01.02-03.04.20:203][ 40]LogQos: Display: AutoRegion us-east-1: 1 datacenters available
+[2026.01.02-03.05.00:000][100]LogOnlineRBAntiCheat: Warning: OSS: Invoked FOnlineRBAntiCheatEOS::EndSession with no active session. Call FOnlineRBAntiCheatEOS::BeginSession first.
+[2026.01.02-03.05.01:000][110]LogEOSSDK: LogEOSAntiCheat: [AntiCheatClient] AddNotifyMessageToServer bound with NotificationId=[49]
+[2026.01.02-03.05.01:100][110]LogEOSSDK: LogEOSAntiCheat: [AntiCheatClient] [BeginSession-003] Mode: 1
+[2026.01.02-03.05.01:200][110]LogOnlineRBAntiCheat: OSS: EOS_AntiCheatClient_BeginSession SUCCESS
+[2026.01.02-03.05.05:000][120]LogNet: Browse: /Game/Maps/Resort/Resort_Persistent?Name=Player
+[2026.01.02-03.05.06:000][125]RB:  >>> /Game/Maps/Resort/Resort_FrontFacade_ART
+[2026.01.02-03.05.06:100][125]RB:  >>> /Game/Maps/Resort/RE_LD_Blockmesh
+[2026.01.02-03.05.06:200][125]RB:  >>> /Game/Maps/Global/TestGate/TestGateWagon-01
+[2026.01.02-03.05.07:000][130]RB:  [local] BeginPlay - LastValidFloorLocation (X=562.2, Y=-1492.8, Z=387.2)
+[2026.01.02-03.05.07:100][130]RB:  [RBPlayer_BP_C_2147482056] BeginPlay - LastValidFloorLocation (X=-1274.3, Y=900.6, Z=2.2)
+[2026.01.02-03.05.07:200][130]RB:  [RBPlayer_BP_C_2147482035] BeginPlay - LastValidFloorLocation (X=630.4, Y=1416.7, Z=387.1)
+[2026.01.02-03.10.00:000][900]LogStreaming: Warning: Couldn't find file for package /Game/Systems/Progression/_DEV/DevTrialInfoData
+[2026.01.02-03.10.01:000][901]RB: Error: **ERROR**  [Scientist-03_007] Special move 'NPC_AnimatedStop' should have been completed
+[2026.01.02-04.05.01:000][5000]LogOnlineRBAntiCheat: OSS: EOS_AntiCheatClient_EndSession SUCCESS
+[2026.01.02-04.05.05:000][5010]LogEOSSDK: LogEOSAntiCheat: [AntiCheatClient] [BeginSession-003] Mode: 0
+[2026.01.02-04.05.05:100][5010]LogOnlineRBAntiCheat: OSS: EOS_AntiCheatClient_BeginSession SUCCESS
+[2026.01.02-04.07.00:000][5100]LogOnlineRBAntiCheat: OSS: EOS_AntiCheatClient_EndSession SUCCESS
+[2026.01.02-04.07.10:000][5110]LogExit: Display: Exiting
