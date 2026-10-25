@@ -549,11 +549,15 @@ def main(argv: list[str]) -> int:
             print_report(r)
 
     if args.json:
+        outdir = os.path.dirname(os.path.abspath(args.json))
+        os.makedirs(outdir, exist_ok=True)
         with open(args.json, "w", encoding="utf-8") as fh:
             json.dump([report_to_dict(r) for r in reps], fh, ensure_ascii=False, indent=2)
         print(f"[+] JSON -> {args.json}")
 
     if args.md:
+        outdir = os.path.dirname(os.path.abspath(args.md))
+        os.makedirs(outdir, exist_ok=True)
         with open(args.md, "w", encoding="utf-8") as fh:
             fh.write(md_report(reps))
         print(f"[+] Markdown -> {args.md}")
