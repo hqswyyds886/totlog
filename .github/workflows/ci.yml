@@ -40,8 +40,11 @@ jobs:
       - name: Verify no leaked user path in export
         shell: bash
         run: |
-          if grep -qE 'Users[\\/](?!x)' out/ci.json 2>/dev/null; then
-            echo "::error::导出里出现了疑似用户路径"
+          # 导出里只应出现 %USERPROFILE% 这类占位符。
+          # 允许 sample.log 里虚构的相对名，不允许真实绝对路径。
+          if grep -Eq '(/Users/[^%]|/home/[^%]|[A-Za-z]:\\\\?Users\\\\?[A-Za-z0-9])' out/ci.json; then
+            echo "::error::导出里出现了疑似真实用户路径"
+            grep -Eo '(/Users/[^"]*|/home/[^"]*|[A-Za-z]:\\\\?Users\\\\?[^"]*)' out/ci.json | head -5
             exit 1
           fi
-          echo "ok"
+          echo "ok: 无真实路径泄露"

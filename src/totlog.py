@@ -348,15 +348,26 @@ def redact_path(p: str) -> str:
     """把导出的路径里的用户名替换成 %USERNAME%。
 
     报告会贴到 issue / 截图里，`C:\\Users\\<真名>\\...` 这种泄露没必要带出去。
+
+    注意：不能只替换"带反斜杠的原样字符串"。在 Linux/macOS 上 os.path.join
+    产出的是正斜杠，直接 replace 会漏掉。这里两种分隔符都试一遍。
     """
     home = os.environ.get("USERPROFILE") or ""
     local = os.environ.get("LOCALAPPDATA") or ""
     out = p
-    if REDACT:
-        if local:
-            out = out.replace(local, "%LOCALAPPDATA%")
-        if home:
-            out = out.replace(home, "%USERPROFILE%")
+    if not REDACT:
+        return out
+
+    def swap(text: str, needle: str, label: str) -> str:
+        if not needle:
+            return text
+        # 原样、以及换成正斜杠两种形态都要替换
+        return text.replace(needle, label).replace(
+            needle.replace("\\", "/"), label
+        ).replace(needle.replace("/", "\\"), label)
+
+    out = swap(out, local, "%LOCALAPPDATA%")
+    out = swap(out, home, "%USERPROFILE%")
     return out
 
 
@@ -449,6 +460,13 @@ def print_report(rep: Report) -> None:
     print()
 
 
+def _spawn_to_dict(s: SpawnPoint) -> dict:
+    """手写而不是 asdict(s) | {...}：dict 合并运算符要 Python 3.9+。"""
+    d = asdict(s)
+    d["ts"] = s.ts.isoformat() if s.ts else None
+    return d
+
+
 def report_to_dict(rep: Report) -> dict:
     m = rep.meta
     return {
@@ -473,7 +491,7 @@ def report_to_dict(rep: Report) -> dict:
         ],
         "maps": [{"ts": m2.ts.isoformat() if m2.ts else None, "path": m2.path} for m2 in rep.maps],
         "map_sequence": rep.map_sequence,
-        "spawns": [asdict(s) | {"ts": s.ts.isoformat() if s.ts else None} for s in rep.spawns],
+        "spawns": [_spawn_to_dict(s) for s in rep.spawns],
         "regions": rep.regions,
         "auto_region": rep.auto_region,
         "warnings": rep.warnings,

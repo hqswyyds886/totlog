@@ -57,11 +57,37 @@ class TestTotlog(unittest.TestCase):
         self.assertEqual(self.rep.auto_region, "us-east-1")
 
     def test_redact_path(self):
-        """导出路径不能带真实用户名。"""
-        p = os.path.join(os.environ.get("USERPROFILE", "C:\\Users\\x"), "OPP", "Saved", "Logs", "OPP.log")
-        out = totlog.redact_path(p)
-        self.assertNotIn(os.environ.get("USERPROFILE", "C:\\Users\\x"), out)
-        self.assertIn("%USERPROFILE%", out)
+        """导出路径不能带真实用户名。用注入的环境变量测，不依赖跑测试的机器。"""
+        old_home = os.environ.get("USERPROFILE")
+        old_local = os.environ.get("LOCALAPPDATA")
+        try:
+            # 造一个固定的假家目录，Windows 和 Linux 都要能替换
+            os.environ["USERPROFILE"] = r"C:\Users\testuser"
+            os.environ["LOCALAPPDATA"] = r"C:\Users\testuser\AppData\Local"
+
+            for raw in (
+                r"C:\Users\testuser\AppData\Local\OPP\Saved\Logs\OPP.log",
+                "C:/Users/testuser/AppData/Local/OPP/Saved/Logs/OPP.log",  # Linux/macOS 风格
+            ):
+                out = totlog.redact_path(raw)
+                self.assertNotIn("testuser", out, f"未脱敏: {out}")
+                self.assertIn("%", out, f"没打上占位符: {out}")
+        finally:
+            for k, v in (("USERPROFILE", old_home), ("LOCALAPPDATA", old_local)):
+                if v is None:
+                    os.environ.pop(k, None)
+                else:
+                    os.environ[k] = v
+
+    def test_redact_can_be_disabled(self):
+        """--no-redact 时要保留原路径。"""
+        old = totlog.REDACT
+        try:
+            totlog.REDACT = False
+            raw = r"C:\Users\testuser\OPP.log"
+            self.assertEqual(totlog.redact_path(raw), raw)
+        finally:
+            totlog.REDACT = old
 
 
 if __name__ == "__main__":
