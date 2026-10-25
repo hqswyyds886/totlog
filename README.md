@@ -1,6 +1,6 @@
 # totlog — The Outlast Trials 对局复盘工具
 
-[![CI](https://github.com/USER/totlog/actions/workflows/ci.yml/badge.svg)](../../actions)
+[![CI](https://github.com/hqswyyds886/totlog/actions/workflows/ci.yml/badge.svg)](../../actions)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
@@ -31,7 +31,7 @@
 需要 Python 3.8+，无第三方依赖。
 
 ```bash
-git clone https://github.com/USER/totlog.git
+git clone https://github.com/hqswyyds886/totlog.git
 cd totlog
 
 # 直接跑（默认扫 %LOCALAPPDATA%\OPP\Saved\Logs）
