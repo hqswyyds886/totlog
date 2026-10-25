@@ -35,3 +35,6 @@ desktop.ini
 *.log.err
 OPP*.log
 !tests/fixtures/*.log
+
+# ---- gh CLI 本地配置（含账号信息，勿提交） ----
+.ghconfig/
